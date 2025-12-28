@@ -4,8 +4,8 @@ from bs4 import BeautifulSoup
 URL = "https://www.eauctionsindia.com/cars"
 LOCATIONS = ["Chennai", "Tiruvallur", "Kanchipuram"]
 
-BOT_TOKEN = "${{ secrets.BOT_TOKEN }}"
-CHAT_ID = "${{ secrets.CHAT_ID }}"
+BOT_TOKEN = os.environ.get("BOT_TOKEN")
+CHAT_ID = os.environ.get("CHAT_ID")
 
 def send_alert(message):
     api = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
@@ -16,6 +16,7 @@ def send_alert(message):
     })
 
 def main():
+    send_alert("✅ Auction monitor is running from GitHub Actions")
     r = requests.get(URL, timeout=20)
     soup = BeautifulSoup(r.text, "html.parser")
 
