@@ -1,19 +1,16 @@
-- name: Run auction monitor
-        run: python auction_monitor.py
-        env:
-          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          CHAT_ID: ${{ secrets.CHAT_ID }}
+name: Tamil Nadu Car Auction Alert
 
 on:
   schedule:
-    - cron: "0 * * * *"   # every hour
-  workflow_dispatch:
+    - cron: "0 * * * *"   # runs every hour
+  workflow_dispatch:      # allows manual run
 
 jobs:
   run-auction-check:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -22,7 +19,11 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install requests beautifulsoup4
+        run: |
+          pip install requests beautifulsoup4
 
       - name: Run auction monitor
         run: python auction_monitor.py
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
