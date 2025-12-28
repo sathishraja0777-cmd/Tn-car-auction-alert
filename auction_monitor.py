@@ -39,5 +39,5 @@ def main():
             )
             send_alert(msg)
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     main()
