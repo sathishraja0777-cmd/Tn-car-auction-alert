@@ -1,3 +1,4 @@
+import os
 import requests
 from bs4 import BeautifulSoup
 
@@ -8,6 +9,10 @@ BOT_TOKEN = os.environ.get("BOT_TOKEN")
 CHAT_ID = os.environ.get("CHAT_ID")
 
 def send_alert(message):
+    if not BOT_TOKEN or not CHAT_ID:
+        print("Missing BOT_TOKEN or CHAT_ID")
+        return
+
     api = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
     requests.post(api, data={
         "chat_id": CHAT_ID,
@@ -16,7 +21,8 @@ def send_alert(message):
     })
 
 def main():
-    send_alert("✅ Auction monitor is running from GitHub Actions")
+    send_alert("✅ GitHub Actions → Telegram is working")
+
     r = requests.get(URL, timeout=20)
     soup = BeautifulSoup(r.text, "html.parser")
 
@@ -33,5 +39,5 @@ def main():
             )
             send_alert(msg)
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     main()
