@@ -1,4 +1,8 @@
-name: Tamil Nadu Car Auction Alert
+- name: Run auction monitor
+        run: python auction_monitor.py
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
 
 on:
   schedule:
